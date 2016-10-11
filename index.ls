@@ -1,20 +1,24 @@
 # autocompile
-
 require! {
-  'ribcage'
+  lodash: { defaultsDeep }
+  ribcage
 }
 
 
 module.exports = (sails) ->
   do
     initialize: (cb) ->
-      env = sails.env = {}
 
-      env.settings = do
-        rootDir: sails.config.appPath + "/node_modules"
+      settings = defaultsDeep do
+        sails.config.ribcage or {},
+          rootDir: sails.config.appPath + "/node_modules"
 
-      env.sails = sails
-
+      console.log env
+      sails.ribcage = env = { sails: sails, settings: settings }
+      
       ribcage.init env, (err,data) ->
-        env.log 'ribcage initialized', {}, 'init'
+        env.env = sails.config.environment
+        env.log "ribcage initialized in #{env.env} env, code ver #{env.version}", {}, 'init', env.env, 'ok'
         cb()
+
+
