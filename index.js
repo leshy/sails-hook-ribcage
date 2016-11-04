@@ -9,7 +9,6 @@
         settings = defaultsDeep(sails.config.ribcage || {}, {
           rootDir: sails.config.appPath + "/node_modules"
         });
-        console.log(env);
         sails.ribcage = env = {
           sails: sails,
           settings: settings

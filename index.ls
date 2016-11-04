@@ -13,7 +13,7 @@ module.exports = (sails) ->
         sails.config.ribcage or {},
           rootDir: sails.config.appPath + "/node_modules"
 
-      console.log env
+      
       sails.ribcage = env = { sails: sails, settings: settings }
       
       ribcage.init env, (err,data) ->
